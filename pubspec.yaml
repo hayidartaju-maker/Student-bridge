@@ -1,0 +1,33 @@
+name: myapp
+description: "Boarding Bridge — school & boarding management portal."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.12.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  provider: ^6.1.2
+  shared_preferences: ^2.3.3
+
+  # Backend
+  supabase_flutter: ^2.6.0
+
+  # Registration photos
+  image_picker: ^1.1.2
+
+  # Results spreadsheet import
+  file_picker: ^8.1.4
+  csv: ^6.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
