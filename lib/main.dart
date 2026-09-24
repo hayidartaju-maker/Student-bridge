@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'screens/browser_mockup_screen.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+void main() {
   runApp(const BoardingBridgeApp());
 }
 

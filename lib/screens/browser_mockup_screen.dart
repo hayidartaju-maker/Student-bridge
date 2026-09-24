@@ -6,22 +6,32 @@ class BrowserMockupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFD9D9D9),
+      backgroundColor: const Color(0xFFD7D7D7),
       body: SafeArea(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: SizedBox(
-              width: 420,
-              child: Column(
-                children: const [
-                  _BrowserTopBar(),
-                  SizedBox(height: 18),
-                  _PageCard(),
-                ],
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final maxWidth = constraints.maxWidth;
+            final containerWidth = maxWidth < 430 ? maxWidth - 20 : 420.0;
+
+            return Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 430),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: SizedBox(
+                    width: containerWidth,
+                    child: Column(
+                      children: const [
+                        _BrowserTopBar(),
+                        SizedBox(height: 18),
+                        _PageCard(),
+                      ],
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ),
+            );
+          },
         ),
       ),
     );
@@ -35,10 +45,10 @@ class _BrowserTopBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 54,
-      margin: const EdgeInsets.symmetric(horizontal: 14),
+      margin: const EdgeInsets.symmetric(horizontal: 12),
       padding: const EdgeInsets.symmetric(horizontal: 12),
       decoration: BoxDecoration(
-        color: const Color(0xFF202327),
+        color: const Color(0xFF1F2125),
         borderRadius: BorderRadius.circular(26),
       ),
       child: Row(
@@ -48,8 +58,8 @@ class _BrowserTopBar extends StatelessWidget {
           Expanded(
             child: Container(
               height: 36,
-              alignment: Alignment.centerLeft,
               padding: const EdgeInsets.symmetric(horizontal: 12),
+              alignment: Alignment.centerLeft,
               child: Row(
                 children: const [
                   Icon(Icons.lock_outline, color: Colors.white70, size: 18),
@@ -74,12 +84,12 @@ class _BrowserTopBar extends StatelessWidget {
               const Icon(Icons.notifications_none_outlined, color: Colors.white, size: 28),
               Positioned(
                 right: 0,
-                top: 2,
+                top: 3,
                 child: Container(
                   width: 18,
                   height: 18,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFE5E5E5),
+                    color: const Color(0xFFF0F0F0),
                     borderRadius: BorderRadius.circular(9),
                   ),
                   child: const Center(
@@ -96,7 +106,7 @@ class _BrowserTopBar extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(width: 10),
+          const SizedBox(width: 12),
           const Icon(Icons.more_vert, color: Colors.white, size: 26),
         ],
       ),
@@ -110,8 +120,8 @@ class _PageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 360,
-      height: 220,
+      width: double.infinity,
+      constraints: const BoxConstraints(maxWidth: 360),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(4),
@@ -119,7 +129,7 @@ class _PageCard extends StatelessWidget {
           BoxShadow(
             color: Colors.black.withOpacity(0.05),
             blurRadius: 3,
-            spreadRadius: 0.5,
+            spreadRadius: 0.4,
           ),
         ],
       ),
@@ -130,7 +140,7 @@ class _PageCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12),
             decoration: const BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF2FA6E3), Color(0xFF2A9FE4)],
+                colors: [Color(0xFF25A6EC), Color(0xFF1F9FE6)],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -147,7 +157,8 @@ class _PageCard extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
+          SizedBox(
+            height: 180,
             child: Row(
               children: [
                 Expanded(
@@ -162,7 +173,7 @@ class _PageCard extends StatelessWidget {
                               'Home',
                               style: TextStyle(
                                 fontSize: 12,
-                                color: Color(0xFF454A4E),
+                                color: Color(0xFF3F464D),
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -171,7 +182,7 @@ class _PageCard extends StatelessWidget {
                               '>',
                               style: TextStyle(
                                 fontSize: 12,
-                                color: Color(0xFF8C8F91),
+                                color: Color(0xFF7F878D),
                               ),
                             ),
                           ],
@@ -182,7 +193,7 @@ class _PageCard extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 14,
                             color: Color(0xFF2D3338),
-                            height: 1.6,
+                            height: 1.7,
                           ),
                         ),
                         SizedBox(height: 12),
@@ -199,7 +210,7 @@ class _PageCard extends StatelessWidget {
                           '© 2025 School.com',
                           style: TextStyle(
                             fontSize: 12,
-                            color: Color(0xFF858B8F),
+                            color: Color(0xFF7F878D),
                           ),
                         ),
                       ],
