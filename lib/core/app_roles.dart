@@ -21,17 +21,12 @@ extension AppRoleExtension on AppRole {
       };
 
   static AppRole? fromValue(String? value) {
-    switch (value) {
-      case 'admin':
-        return AppRole.admin;
-      case 'teacher':
-        return AppRole.teacher;
-      case 'parent':
-        return AppRole.parent;
-      case 'student':
-        return AppRole.student;
-      default:
-        return null;
-    }
+    return switch (value) {
+      'admin' => AppRole.admin,
+      'teacher' => AppRole.teacher,
+      'parent' => AppRole.parent,
+      'student' => AppRole.student,
+      _ => null,
+    };
   }
 }
