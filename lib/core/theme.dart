@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 /// Central theme for Boarding Bridge — a clean, modern "portal" look.
 class AppTheme {
-  static const Color primary = Color(0xFF2F6FED); // portal blue
-  static const Color secondary = Color(0xFF16A085); // accent teal
+  static const Color primary = Color(0xFF2F6FED);
+  static const Color secondary = Color(0xFF16A085);
   static const Color danger = Color(0xFFE53E3E);
   static const Color surfaceLight = Color(0xFFF6F8FB);
   static const Color surfaceDark = Color(0xFF11151C);
@@ -18,6 +18,7 @@ class AppTheme {
       scaffoldBackgroundColor: surfaceLight,
       fontFamily: 'Roboto',
     );
+
     return base.copyWith(
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
@@ -42,8 +43,7 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: Colors.white,
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: Colors.black.withOpacity(0.08)),
@@ -91,6 +91,7 @@ class AppTheme {
       scaffoldBackgroundColor: surfaceDark,
       fontFamily: 'Roboto',
     );
+
     return base.copyWith(
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
@@ -114,8 +115,7 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: const Color(0xFF1B2130),
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: Colors.white.withOpacity(0.08)),
