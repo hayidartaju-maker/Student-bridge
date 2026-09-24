@@ -7,33 +7,28 @@ import 'services/supabase_service.dart';
 import 'screens/splash_screen.dart';
 import 'screens/main_scaffold.dart';
 import 'screens/role_selection_screen.dart';
+import 'screens/entry_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await StorageService.instance.init();
-
   Object? startupError;
   try {
     await SupabaseService.init();
   } catch (error) {
     startupError = error;
   }
-
   runApp(BoardingBridgeApp(startupError: startupError));
 }
 
 class BoardingBridgeApp extends StatelessWidget {
   final Object? startupError;
-
   const BoardingBridgeApp({super.key, this.startupError});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => AppProvider()
-        ..loadTheme()
-        ..loadSession()
-        ..loadRole(),
+      create: (_) => AppProvider()..loadTheme()..loadSession()..loadRole(),
       child: Consumer<AppProvider>(
         builder: (context, provider, _) => MaterialApp(
           title: 'Boarding Bridge',
@@ -41,9 +36,7 @@ class BoardingBridgeApp extends StatelessWidget {
           themeMode: provider.themeMode,
           theme: AppTheme.light(),
           darkTheme: AppTheme.dark(),
-          home: startupError != null
-              ? StartupErrorScreen(error: startupError!)
-              : const _AppEntry(),
+          home: startupError == null ? const _AppEntry() : StartupErrorScreen(error: startupError!),
         ),
       ),
     );
@@ -52,7 +45,6 @@ class BoardingBridgeApp extends StatelessWidget {
 
 class _AppEntry extends StatefulWidget {
   const _AppEntry();
-
   @override
   State<_AppEntry> createState() => _AppEntryState();
 }
@@ -65,35 +57,30 @@ class _AppEntryState extends State<_AppEntry> {
     if (!_splashDone) {
       return SplashScreen(onEnter: () => setState(() => _splashDone = true));
     }
-
-    final role = context.watch<AppProvider>().selectedRole;
-    return role == null ? const RoleSelectionScreen() : const MainScaffold();
+    return const EntryScreen();
   }
 }
 
 class StartupErrorScreen extends StatelessWidget {
   final Object error;
-
   const StartupErrorScreen({super.key, required this.error});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(Icons.cloud_off_rounded, size: 56),
-              const SizedBox(height: 16),
-              const Text('Unable to start Boarding Bridge', textAlign: TextAlign.center),
-              const SizedBox(height: 8),
-              Text('$error', textAlign: TextAlign.center),
-            ],
+  Widget build(BuildContext context) => Scaffold(
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.cloud_off_rounded, size: 56),
+                const SizedBox(height: 16),
+                const Text('Unable to start Boarding Bridge', textAlign: TextAlign.center),
+                const SizedBox(height: 8),
+                Text('$error', textAlign: TextAlign.center),
+              ],
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }

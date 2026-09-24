@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../core/app_roles.dart';
 import '../providers/app_provider.dart';
+import '../services/supabase_service.dart';
+import '../widgets/announcements_panel.dart';
 import 'admin_upload_results_screen.dart';
 import 'registration_screen.dart';
 import 'students_list_screen.dart';
@@ -25,7 +27,11 @@ class HomeScreen extends StatelessWidget {
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
-        children: _cardsForRole(context),
+        children: [
+          AnnouncementsPanel(role: role),
+          const SizedBox(height: 16),
+          ..._cardsForRole(context),
+        ],
       ),
     );
   }
@@ -47,7 +53,7 @@ class HomeScreen extends StatelessWidget {
           _ActionCard(
             icon: Icons.groups_rounded,
             title: 'Students & Parents',
-            subtitle: 'View all registered records • tap a student for results',
+            subtitle: 'View all registered records and results',
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const StudentsListScreen()),
@@ -57,7 +63,7 @@ class HomeScreen extends StatelessWidget {
           _ActionCard(
             icon: Icons.upload_file_rounded,
             title: 'Upload Results',
-            subtitle: 'Admin: bulk-import a results spreadsheet (CSV)',
+            subtitle: 'Bulk-import a results spreadsheet (CSV)',
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const AdminUploadResultsScreen()),
@@ -79,7 +85,7 @@ class HomeScreen extends StatelessWidget {
           _ActionCard(
             icon: Icons.bar_chart_rounded,
             title: 'Results Review',
-            subtitle: 'Open any student and inspect results by term',
+            subtitle: 'Inspect results by term',
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const StudentsListScreen()),
@@ -91,17 +97,7 @@ class HomeScreen extends StatelessWidget {
           _ActionCard(
             icon: Icons.person_rounded,
             title: 'My Child',
-            subtitle: 'View your linked child’s profile and details',
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const StudentsListScreen()),
-            ),
-          ),
-          const SizedBox(height: 12),
-          _ActionCard(
-            icon: Icons.assignment_rounded,
-            title: 'Academic Results',
-            subtitle: 'View your child’s academic results',
+            subtitle: 'View your linked child profile and results',
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const StudentsListScreen()),
@@ -110,16 +106,6 @@ class HomeScreen extends StatelessWidget {
         ];
       case AppRole.student:
         return [
-          _ActionCard(
-            icon: Icons.person_rounded,
-            title: 'My Profile',
-            subtitle: 'See your own student profile',
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const StudentsListScreen()),
-            ),
-          ),
-          const SizedBox(height: 12),
           _ActionCard(
             icon: Icons.grade_rounded,
             title: 'My Results',
@@ -160,7 +146,7 @@ class _ActionCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                  color: Theme.of(context).colorScheme.primary.withOpacity(.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(icon, color: Theme.of(context).colorScheme.primary),
@@ -170,18 +156,9 @@ class _ActionCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 16,
-                      ),
-                    ),
+                    Text(title, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
                     const SizedBox(height: 2),
-                    Text(
-                      subtitle,
-                      style: TextStyle(color: Colors.black.withOpacity(0.55)),
-                    ),
+                    Text(subtitle, style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant)),
                   ],
                 ),
               ),
